@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NEW</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+
+</head>
+
+<body id="content">
+	<div class="results">
+	    <center>
+	      <h2 id="name" class="text-uppercase">{{title}}</h2>
+	    </center>
+	</div>
+	<br>
+
+<div id="mycontent">
+    <div id="mcontent">
+      <div class="poster-lg">
+        <img class="poster" style="border:1px solid white; border-radius: 9px;margin-left: 90px;" height="330" width="250" src={{poster}}>
+      </div>
+      
+      <div id="details">
+        <br/>
+        <h6 id="title" style="color:white;">TITLE: &nbsp;{{title}}</h6>
+        <h6 id="overview" style="color:white;max-width: 85%">OVERVIEW: <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overview}}</h6>
+        <h6 id="vote_average" style="color:white;">RATING: &nbsp;{{vote_average}}/10 ({{vote_count}} votes)</h6>
+        <h6 id="genres" style="color:white;">GENRE: &nbsp;{{genres}}</h6>
+        <h6 id="date" style="color:white;">RELEASE DATE: &nbsp;{{release_date}}</h6>
+        <h6 id="runtime" style="color:white;">RUNTIME: &nbsp;{{runtime}}</h6>
+        <h6 id="status" style="color:white;">STATUS: &nbsp;{{status}}</h6>
+      </div>
+    </div>
+</div>
+<br/>
+	
+
+  <center>
+    {% if reviews %}
+    <h2 class="rvw" style="color:white;font-family:Montserrat,sans-serif;">USER REVIEWS</h2>
+     <div class="col-md-12" style="margin: 0 auto; margin-top:25px;">
+        <table class="table" style=" width: 90% ;color:white ; border:none; border-radius:20px; box-shadow:3px -3px 15px 0 grey, 0px 5px 15px 0 grey; border-collapse: collapse;">
+            <thead>
+                <tr style="border:none;">
+                    <th class="text-center" scope="col" style="width: 75%">Reviews</th>
+                    <th class="text-center" scope="col">Sentiments</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+		      {% for review, status in reviews.items() if not reviews.hidden %}
+		      <tr style="border-bottom: dashed white;">
+              	  <td style="border:none">{{review}}</td>
+	              <td style="border:none text-align:center; font-size:bold;"><center>
+	                  {{status}} : 
+	                  {% if status =='Positive' %}
+	                    &#128515;
+	                  {% else %}
+	                    &#128534;
+	                  {% endif %}
+	                </center>
+	              </td>
+          		</tr>
+      			{% endfor %}
+    		</tbody>
+ 		 </table>
+    </div>
+    {% else %}
+    <div style="color:white;">
+      <h1 style="color:white"> This movie is not released yet </h1>
+    </div>
+    {% endif %}
+  </center>
+
+      {% if movie_cards|length > 1 %}
+
+
+      <div class="movie" style="color: #E8E8E8;margin-top: 35px;">
+      <center><h3 style="font-family:Montserrat,sans-serif;">RECOMMENDED MOVIES FOR YOU</h3></center>
+    </div>
+
+    <div class="movie-content" style="margin-bottom:50px;">
+      {% for poster, title in movie_cards.items() if not movie_cards.hidden %}
+      <div class="card" style="width: 15rem;" title="{{title}}" onclick="recommendcard(this)">
+          <div class="imghvr">
+            <img class="card-img-top"  style="border:none; border-radius:20px; box-shadow:3px -3px 15px 0 grey, 0px 5px 15px 0 grey;" height="350" width="240" alt="{{title}} - poster" src={{poster}}>
+            <figcaption class="fig">
+              <button class="card-btn btn btn-danger"> Click</button>
+            </figcaption>
+            <div>
+           <h6 style="color:black;text-transform: capitalize;font-family:Montserrat,sans-serif; margin-top:3px;margin-bottom:13px; text-align:center;">{{title}}</h6>
+           </div>
+           </div> 
+        </div>
+    {% endfor %}
+    </div>
+
+    {% endif %}
+
+    
+    </div>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
