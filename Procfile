@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT main:app
+web: sh setup.sh && streamlit run main:app
