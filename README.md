@@ -1,5 +1,5 @@
 # Movie_Recomendation_System
-## Content based recommendation system reccomend the similar movies on the basis of gener and analyses the sentiments on the reviews given by the user for that movie.
+## Content based recommendation system reccomend the similar movies on the basis of genre and analyses the sentiments on the reviews given by the user for that movie.
 
 https://user-images.githubusercontent.com/71813414/127608723-9c577fe9-a59a-4c9f-b99b-17c9b815fb39.mp4
 
